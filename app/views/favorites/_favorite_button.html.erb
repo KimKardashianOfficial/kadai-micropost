@@ -1,0 +1,21 @@
+  <% p "fav" %>
+  <% p @micropost %>
+  <% p "fffffffavvvvvvv" %>
+  <% p current_user.favos %>
+  <% p "favend" %>
+  <% if current_user.fav?(@micropost) %> 
+  <!-- 現在のユーザが、このツイートをふぁぼしてるか？ -->
+    <% p @micropost.id %>
+    <%= form_for(current_user.favorites.find_by(user_id: current_user.id), html: { method: :delete }) do |f| %>
+      <%= hidden_field_tag :fav_id, @micropost.id %>
+      <%= hidden_field_tag :id, @micropost.id %>
+      <%= f.submit 'Unlike' , class: 'btn btn-xs' %>
+    <% end %>
+  <% else %>
+    <%= form_for(current_user.favorites.build) do |f| %>
+      <% p "kokokara"  %>
+      <%= hidden_field_tag :fav_id, @micropost.id %>
+      <%= hidden_field_tag :id, @micropost.id %>
+      <%= f.submit 'Like', class: 'btn btn-xs' %>
+    <% end %>
+  <% end %>
